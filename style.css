@@ -1,0 +1,35 @@
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#dfe2e3}
+body{font-family:Inter,Arial,sans-serif}
+.hero{position:relative;width:100vw;height:100vh;min-height:500px;overflow:hidden;isolation:isolate;background:#dfe2e3}
+.scene{position:absolute;inset:-2%;background:url("assets/bg-flow.png") center center/cover no-repeat;transform:scale(1.01);transition:transform .8s ease-out;z-index:-4}
+.sun-glow{display:none}
+.vignette{display:none}
+.content{position:absolute;left:50%;top:12%;width:min(850px,76vw);transform:translateX(-50%);text-align:center;z-index:4}
+.logo{width:min(380px,30vw);height:auto;display:block;margin:0 auto 0.4vh;mix-blend-mode:multiply}
+h1{margin:0;color:#111c31;font-family:"Bebas Neue",Impact,sans-serif;font-size:clamp(74px,8.2vw,132px);font-weight:400;letter-spacing:.055em;line-height:.86;white-space:nowrap;text-shadow:0 2px 2px rgba(255,255,255,.18);animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.accent{width:103px;height:3px;background:#d73538;margin:2.8vh auto 2.4vh;animation:grow .8s .15s both}
+p{margin:0;color:#182437;font-size:clamp(14px,1.35vw,20px);line-height:1.55;font-weight:500;text-shadow:0 1px 1px rgba(255,255,255,.45);animation:rise .8s .22s both}
+.products{display:none}
+.floor-shine{position:absolute;left:0;right:0;bottom:0;height:23%;z-index:3;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(255,255,255,.06));mix-blend-mode:screen}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes grow{from{opacity:0;transform:scaleX(.25)}to{opacity:1;transform:scaleX(1)}}
+@keyframes productIn{from{opacity:0;transform:translateY(35px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:900px){
+ .content{top:13%;width:92vw}
+ .logo{width:min(300px,50vw);margin-bottom:1vh}
+ h1{font-size:clamp(64px,12vw,105px)}
+ p{font-size:15px}
+}
+@media(max-width:600px){
+ .hero{min-height:480px}
+ .scene{background-position:70% center}
+ .content{top:8%;left:3%;width:94vw}
+ .logo{width:52vw;margin-bottom:1.5vh}
+ h1{font-size:clamp(46px,13vw,78px);letter-spacing:.03em}
+ .accent{width:60px;height:2px;margin:1.8vh 0 1.5vh}
+ p{font-size:12px;line-height:1.5}
+}
+@media(max-height:650px) and (min-width:601px){
+ .content{top:11%}.logo{width:300px;margin-bottom:2vh}.accent{margin:2vh auto}.products{width:48vw}
+}

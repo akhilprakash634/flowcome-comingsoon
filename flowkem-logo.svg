@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 105">
+<g transform="translate(0 10)">
+ <path d="M42 0 L74 32 L42 64 L10 32 Z" fill="#0868ad"/>
+ <path d="M54 12 L86 44 L54 76 L22 44 Z" fill="#0b73bb"/>
+ <path d="M70 27 L88 45 L70 63 L52 45 Z" fill="#df3438"/>
+</g>
+<text x="105" y="57" font-family="Arial,Helvetica,sans-serif" font-size="56" font-style="italic" font-weight="800" fill="#0868ad">Flowkem</text>
+<text x="108" y="86" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#72777d">Pipes · Fittings · Valves</text>
+</svg>
