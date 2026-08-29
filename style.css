@@ -1,142 +1,192 @@
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0a0f1a}
-body{font-family:Inter,Arial,sans-serif}
+/* ═══════════════════════════════════════════
+   FLOWKEM — COMING SOON
+   Matches the reference design exactly.
+   ═══════════════════════════════════════════ */
 
-/* ── Hero ── */
-.hero{
-  position:relative;
-  width:100vw;
-  height:100vh;
-  height:100dvh; /* dynamic viewport height — fixes mobile browser chrome */
-  min-height:480px;
-  overflow:hidden;
-  isolation:isolate;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* ── Background ── */
-.scene{
-  position:absolute;
-  inset:-3%;
-  background:url("assets/bg-flow.png") center center/cover no-repeat;
-  z-index:-4;
-  transform:scale(1.01);
-  transition:transform .8s ease-out;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Warm neutral fallback shown while bg-flow.png loads */
+  background: #ccc9c2;
 }
 
-/* ── Unused overlays ── */
-.sun-glow{display:none}
-.vignette{display:none}
-
-/* ── Content block ── */
-.content{
-  position:relative;
-  z-index:4;
-  text-align:center;
-  width:min(820px,88vw);
-  padding:0 16px;
-  /* shift upward from true center to clear the products image at bottom */
-  margin-bottom:10vh;
+body {
+  font-family: 'Inter', Arial, sans-serif;
 }
 
-/* ── Logo ── */
-.logo{
-  width:min(340px,46vw);
-  height:auto;
-  display:block;
-  margin:0 auto 0.5vh;
-  mix-blend-mode:multiply;
+/* ═══════════════════════════════
+   FULL-VIEWPORT WRAPPER
+   bg image lives here + ::before overlay
+   ═══════════════════════════════ */
+.page {
+  /* Dimensions */
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 380px;
+
+  /* Background photo */
+  background-image: url('assets/bg-flow.png');
+  background-size: cover;
+  background-position: center 55%;   /* show towers + low cloud */
+  background-repeat: no-repeat;
+
+  /* Stacking context for ::before overlay */
+  position: relative;
+  isolation: isolate;
+
+  /* Stack children in a column, centred */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Headline ── */
-h1{
-  margin:0;
-  color:#111c31;
-  font-family:"Bebas Neue",Impact,sans-serif;
-  font-size:clamp(52px,9vw,128px);
-  font-weight:400;
-  letter-spacing:.055em;
-  line-height:.88;
-  white-space:nowrap;
-  text-shadow:0 2px 4px rgba(255,255,255,.2);
-  animation:rise .8s cubic-bezier(.2,.7,.2,1) both;
+/* Heavy white/warm wash = the hazy, almost-greyscale look in the reference */
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(242, 239, 233, 0.62);
+  pointer-events: none;
 }
 
-/* ── Accent bar ── */
-.accent{
-  width:clamp(60px,8vw,100px);
-  height:3px;
-  background:#d73538;
-  margin:clamp(10px,2.5vh,22px) auto clamp(8px,2vh,18px);
-  animation:grow .8s .15s both;
+/* Every direct child floats above the overlay */
+.logo,
+.headline,
+.contact {
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Tagline ── */
-p{
-  margin:0;
-  color:#182437;
-  font-size:clamp(12px,1.5vw,19px);
-  line-height:1.6;
-  font-weight:500;
-  text-shadow:0 1px 2px rgba(255,255,255,.5);
-  animation:rise .8s .22s both;
+/* ═══════════════════════════════
+   LOGO
+   ═══════════════════════════════ */
+.logo {
+  display: block;
+  /* PNG has its own white background — works fine on the light overlay */
+  width: clamp(155px, 17vw, 265px);
+  height: auto;
+  margin-bottom: clamp(18px, 3.8vh, 52px);
+  animation: fadeDown 0.75s cubic-bezier(0.22, 0.9, 0.28, 1) both;
 }
 
-/* ── Products (hidden — baked into bg) ── */
-.products{display:none}
-
-/* ── Floor shine ── */
-.floor-shine{
-  position:absolute;
-  left:0;right:0;bottom:0;
-  height:22%;
-  z-index:3;
-  pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(255,255,255,.05));
-  mix-blend-mode:screen;
+/* ═══════════════════════════════
+   "COMING SOON" HEADLINE
+   Wide ultra-bold — matches reference.
+   Barlow 900 gives wide, heavy letters
+   (not condensed like Barlow Condensed).
+   ═══════════════════════════════ */
+.headline {
+  font-family: 'Barlow', 'Arial Black', Impact, sans-serif;
+  font-weight: 900;
+  font-size: clamp(68px, 13.2vw, 192px);
+  letter-spacing: 0.025em;
+  color: #111111;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  /* Subtle shadow adds depth without looking heavy */
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
+  animation: fadeUp 0.75s 0.1s cubic-bezier(0.22, 0.9, 0.28, 1) both;
 }
 
-/* ── Animations ── */
-@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes grow{from{opacity:0;transform:scaleX(.2)}to{opacity:1;transform:scaleX(1)}}
-
-/* ══ TABLET 600–900px ══ */
-@media(max-width:900px){
-  .content{width:90vw;margin-bottom:8vh}
-  .logo{width:min(260px,55vw)}
-  h1{font-size:clamp(48px,12vw,96px)}
-  p{font-size:clamp(13px,2vw,16px)}
+/* ═══════════════════════════════
+   CONTACT ROW
+   ── ☎ +971 58 544 4884 ──
+   ═══════════════════════════════ */
+.contact {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(10px, 2.4vw, 30px);
+  margin-top: clamp(14px, 2.8vh, 42px);
+  animation: fadeUp 0.75s 0.22s cubic-bezier(0.22, 0.9, 0.28, 1) both;
 }
 
-/* ══ MOBILE ≤600px ══ */
-@media(max-width:600px){
-  .hero{
-    align-items:center;
-    justify-content:center;
-    padding-top:0;
-  }
-  .scene{background-position:68% center}
-  .content{
-    width:92vw;
-    padding:0 16px;
-    margin-bottom:0;
-    margin-top:0;
-    text-align:center;
-  }
-  .logo{width:min(220px,58vw);margin:0 auto 0.4vh}
-  h1{font-size:clamp(40px,14vw,72px);letter-spacing:.03em;white-space:normal;word-break:keep-all}
-  .accent{height:2px;margin:1.4vh auto 1.2vh}
-  p{font-size:clamp(11px,3.2vw,14px);line-height:1.5}
+/* thin decorative lines flanking the phone */
+.rule {
+  display: block;
+  flex-shrink: 0;
+  width: clamp(28px, 5vw, 82px);
+  height: 1px;
+  background: #2a2a2a;
+  opacity: 0.45;
 }
 
-/* ══ SMALL HEIGHT (landscape phone) ══ */
-@media(max-height:500px){
-  .hero{align-items:flex-start;padding-top:4vh}
-  .content{margin-bottom:0}
-  .logo{width:min(160px,30vw);margin-bottom:0.2vh}
-  h1{font-size:clamp(34px,8vw,58px)}
-  .accent{margin:1vh auto}
-  p{font-size:12px}
+.phone-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.phone-icon {
+  flex-shrink: 0;
+  width: clamp(13px, 1.35vw, 18px);
+  height: clamp(13px, 1.35vw, 18px);
+  color: #1e1e1e;
+}
+
+.phone {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: clamp(12px, 1.25vw, 17px);
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: 0.045em;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.phone:hover {
+  color: #d73538;
+}
+
+/* ═══════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════ */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — TABLET ≤ 900px
+   ═══════════════════════════════ */
+@media (max-width: 900px) {
+  .logo     { width: clamp(135px, 27vw, 225px); }
+  .headline { font-size: clamp(54px, 14.5vw, 112px); }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — MOBILE ≤ 600px
+   ═══════════════════════════════ */
+@media (max-width: 600px) {
+  .logo     { width: clamp(112px, 45vw, 178px); margin-bottom: 14px; }
+  .headline { font-size: clamp(46px, 16.5vw, 82px); white-space: normal; text-align: center; }
+  .rule     { width: 18px; }
+  .phone    { font-size: 12.5px; }
+  .contact  { gap: 7px; margin-top: 10px; }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — LANDSCAPE PHONE
+   ═══════════════════════════════ */
+@media (max-height: 460px) {
+  .logo     { width: clamp(85px, 17vw, 125px); margin-bottom: 6px; }
+  .headline { font-size: clamp(36px, 8.5vw, 62px); }
+  .contact  { margin-top: 5px; }
 }
